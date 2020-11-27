@@ -1,0 +1,17 @@
+<h1>Sleep</h1>
+<table>
+    <tr>
+        <th>Päivä</th>
+        <th>Rhythm</th>
+        <th>Quality</th>
+    </tr>
+    <% allSleep.forEach((sleep) => { %>
+        <a href="/sleep/<%= sleep.id %>">
+            <tr>
+                <td><%= sleep.date %></td>
+                <td><%= sleep.rythm %></td>
+                <td><%= sleep.quality %></td>
+            </tr>
+        </a>
+    <% }); %>
+</table>

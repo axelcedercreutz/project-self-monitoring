@@ -1,0 +1,30 @@
+<%- include('./partials/reportingHeader.ejs') %>
+<div style="display: flex;">
+    <div style="flex: 1 1 0;">
+
+    </div>
+    <div style="flex: 1 1 0;">
+        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: 80px;"> 
+            <div style="width:100%;">
+                <p>Date</p>
+                <input type="date" name="date" value="<%= date %>" style="width:100%"/>
+            </div>
+            <div style="width:100%;">
+                <p>Time spent on exercise</p>
+                <input type="number" name="excerciseTime" step="0.5" min="0" style="width:100%"/>
+            </div>
+            <div style="width:100%;">
+                <p>Time spent studying</p>
+                <input type="number" name="studyTime" min="1" max="5" style="width:100%"/>
+            </div>
+            <div style="width:100%;">
+                <p>Regularity and quality of eating</p>
+                <input type="text" name="qualityOfEating" style="width:100%"/>
+            </div>
+            <div style="width:100%;">
+                <p>Generic mood</p>
+                <input type="text" name="mood" style="width:100%"/>
+            </div>
+        </form>
+    </div>
+</div>

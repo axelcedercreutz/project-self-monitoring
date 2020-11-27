@@ -1,0 +1,17 @@
+<h1>Study</h1>
+<table>
+    <tr>
+        <th>Päivä</th>
+        <th>Time</th>
+        <th>Course</th>
+    </tr>
+    <% allStudy.forEach((study) => { %>
+        <a href="/sleep/<%= study.id %>">
+            <tr>
+                <td><%= study.date %></td>
+                <td><%= study.time %></td>
+                <td><%= study.course %></td>
+            </tr>
+        </a>
+    <% }); %>
+</table>

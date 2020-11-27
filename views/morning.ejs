@@ -1,0 +1,41 @@
+<%- include('./partials/reportingHeader.ejs') %>
+<div style="display: flex;">
+    <div style="flex: 1 1 0;">
+        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: 80px;" method="POST" action="/behavior/reporting/morning"> 
+            <div style="width:100%">
+                <p>Date</p>
+                <input type="date" name="date" value="<%= date %>" style="width:100%"/>
+            </div>
+            <div style="width:100%">
+                <p>Sleep duration (0.5h accuracy)</p>
+                <input type="number" name="sleepDuration" step="0.5" min="0" style="width:100%"/>
+            </div>
+            <div style="width:100%">
+                <p>Sleep quality</p>
+                <div style="display: flex;">
+                <% for(var i = 1; i <= 5; i++) { %>
+                    
+                    <input type="radio" id="<%= i %>" name="sleepQuality" value="<%= i %>">
+                    <label for="<%= i %>"><%= i %></label><br>
+                <% } %>
+                </div>
+            </div>
+            <div style="width:100%">
+                <p>Generic mood</p>
+                <div style="display: flex;">
+                <% for(var i = 1; i <= 5; i++) { %>
+                    
+                    <input type="radio" id="<%= i %>" name="mood" value="<%= i %>">
+                    <label for="<%= i %>"><%= i %></label><br>
+                <% } %>
+                </div>
+            </div>
+            <div style="width:100%; margin-top: 30px;">
+                <input type="submit" value="Submit report!" />
+            </div>
+        </form>
+    </div>
+    <div style="flex: 1 1 0;">
+
+    </div>
+</div>

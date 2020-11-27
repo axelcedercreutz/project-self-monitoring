@@ -1,0 +1,29 @@
+<H1>Self-monitoring app</H1>
+
+<p>This is an application for self-reporting your daily activities like sleeping, studying, physical activity and so on.</p>
+<p>All your data is stored in a safe database and you are the only person able to access your data.</p>
+
+<br/>
+
+<p>Here's a glimpse of what you can expect when logging in to your own page</p>
+<br/>
+<div style="display: flex;text-align: center;">
+    <p style="flex: 1 1 0;">Mood today: 4.5</p>
+    <p style="flex: 1 1 0;">Mood yesterday: 4.3</p>
+</div>
+
+<div style="text-align: center;">
+    <% if(4.5 > 4.3) { %> 
+    <p>Things are looking bright today</p>
+    <% } else { %> 
+        <p>Things are looking gloomy today</p>
+    <% } %> 
+</div>
+
+<br/>
+
+<ul style="display: flex; list-style: none; padding: 0; text-align: center;">
+    <li style="flex: 1 1 0;"><a href="/auth/login">Want to login an existing user?</a></li>
+   <li style="flex: 1 1 0;"><a href="/auth/registration">Register user</a></li>
+   <li style="flex: 1 1 0;"><a href="/behavior/reporting">Report your data</a></li>
+</ul>

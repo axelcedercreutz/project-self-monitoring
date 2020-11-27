@@ -1,0 +1,31 @@
+<h1>General info</h1>
+<table>
+    <tr>
+        <th>Päivä</th>
+        <th>Screen time</th>
+        <th>Generic mood</th>
+    </tr>
+    <% allGeneral.forEach((general) => { %>
+        <a href="/general/<%= general.id %>">
+            <tr>
+                <td><%= general.date %></td>
+                <td><%= general.screenTime %></td>
+                <td><%= general.mood %></td>
+            </tr>
+        </a>
+    <% }); %>
+</table>
+
+<form method="POST">
+    <p>Date</p>
+    <input type="date" name="date" />
+    <br/>
+    <p>Screen time</p>
+    <input type="text" name="screenTime" />
+    <br/>
+    <p>Generic mood</p>
+    <input type="text" name="mood" />
+    <br/>
+    <br/>
+    <input type="submit" value="Submit!" />
+</form>
