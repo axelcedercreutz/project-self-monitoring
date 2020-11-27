@@ -1,5 +1,5 @@
 # project-self-monitoring
-Project for Web Software Development project
+Project for Web Software Development -course at Aalto University (nov - dec 2020)
 
 A demo of the project can be found: --- ENTER URL HERE ---
 
