@@ -1,5 +1,5 @@
-import { validateMorningReport } from '../../middlewares/validations.js';
-import { getMorningReportBasedOnDate, deleteMorningReportBasedOnDate, addMorningReportToDb } from "../../services/reportingServices.js";
+import { validateMorningReport, validateEveningReport } from '../../middlewares/validations.js';
+import { getMorningReportBasedOnDate, deleteMorningReportBasedOnDate, addMorningReportToDb, getEveningReportBasedOnDate , deleteEveningReportBasedOnDate, addEveningReportToDb} from "../../services/reportingServices.js";
 
 const postMorningReporting = async ({ session, request, response, render}) => {
     const data = await validateMorningReport(request);
@@ -20,10 +20,12 @@ const postMorningReporting = async ({ session, request, response, render}) => {
     await addMorningReportToDb(data);
     response.redirect('/behavior/reporting');
 }
-/*
+
 const postEveningReporting = async ({ session, request, response, render}) => {
     const data = await validateEveningReport(request);
     const user = await session.get('user');
+    data.userId = user.id;
+    console.log(data);
     if(data.errors) {
         data.user = user;
         render('evening.ejs', data);
@@ -31,16 +33,21 @@ const postEveningReporting = async ({ session, request, response, render}) => {
     }
     const existingMorningReportForTheDate = await getEveningReportBasedOnDate(data.date, user.id);
     if(existingMorningReportForTheDate.rowCount > 0){
-        const deletableId = existingMorningReportForTheDate.rowsOfObjects()[0].id
-        await deleteEveningReportBasedOnId(deletableId, user.id);
+        await deleteEveningReportBasedOnDate(data.date, data.userId);
     }
-    await addEveningReportToDb(data, user.id);
+    await addEveningReportToDb(data);
     response.redirect('/behavior/reporting');
 }
-*/
+
 const showReporting = async ({ session, render }) => {
   const user = await session.get('user');
-  render('home.ejs', {user: user, morningDone: false, eveningDone: true});
+  const today = new Date();
+  const formattedDate = today.toISOString().substring(0,10);
+  const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
+  const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
+  const morningDone = resMorningReport.rowCount > 0;
+  const eveningDone = resEveningReport.rowCount > 0;
+  render('home.ejs', {user: user, morningDone: morningDone, eveningDone: eveningDone});
 }
 
 const showMorningReporting = async({ session, render }) => {
@@ -56,4 +63,5 @@ const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
   render('evening.ejs', {user: user, date: formattedDate, morningDone: false, eveningDone: true });
 }
-export { postMorningReporting, showReporting, showMorningReporting, showEveningReporting }
+
+export { postMorningReporting, postEveningReporting, showReporting, showMorningReporting, showEveningReporting }

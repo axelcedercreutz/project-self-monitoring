@@ -1,7 +1,7 @@
 import { Router } from "../deps.js";
 
 import { showLandingPage } from './controllers/homeController.js';
-import { postMorningReporting, showReporting, showMorningReporting, showEveningReporting } from './controllers/reportingController.js';
+import { postMorningReporting, showReporting, showMorningReporting, showEveningReporting, postEveningReporting } from './controllers/reportingController.js';
 import { postRegistrationForm, postLoginForm, postLogout, showLoginForm, showRegistrationForm } from './controllers/userController.js';
 
 const router = new Router();
@@ -12,6 +12,7 @@ router.get('/behavior/reporting', showReporting);
 router.get('/behavior/reporting/morning', showMorningReporting);
 router.post('/behavior/reporting/morning', postMorningReporting);
 router.get('/behavior/reporting/evening', showEveningReporting);
+router.post('/behavior/reporting/evening', postEveningReporting);
 
 
 router.get('/auth/login', showLoginForm);
