@@ -13,5 +13,5 @@ deno run --allow-env --allow-net --allow-read --allow-write --unstable app.js;
 ```
 in order to run the tests locally, go to each folder of where the test is and run:
 ```
-deno test --coverage --unstable {NAME_OF_THE_FILE_BEING_TESTED}.js
+deno test --coverage --unstable {NAME_OF_THE_FILE_BEING_TESTED}.js;
 ```
