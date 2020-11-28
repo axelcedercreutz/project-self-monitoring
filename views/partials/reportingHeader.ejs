@@ -1,14 +1,4 @@
-<ul style="display: flex; list-style: none; padding: 0; text-align: center;">
-    <li style="flex: 1 1 0;"><h1>Hello <%= user.email %>, what would you like to report today?</h1>
-    </li>
-    <li style="flex: 0 1 0;">
-        <form method="POST" action="/auth/logout">
-            <input type="submit" value="logout" />
-        </form>
-    </li>
-</ul>
-
-
+<%- include('./navbarLoggedIn.ejs') , {user: user} %>
 <ul style="display: flex; list-style: none; padding: 0; text-align: center;">
     <li style="flex: 1 1 0;">
         <a href="/behavior/reporting/morning">

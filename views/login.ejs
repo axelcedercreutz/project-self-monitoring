@@ -1,3 +1,4 @@
+<%- include('./partials/header.ejs') %>
 <h1>Login!</h1>
 <form method="POST" action="/auth/login">
     <h3>Email</h3>
@@ -10,3 +11,4 @@
 <% if (errors) { %>
     <%- include('./partials/errors.ejs', errors) %>
 <% } %>
+<%- include('./partials/footer.ejs') %>

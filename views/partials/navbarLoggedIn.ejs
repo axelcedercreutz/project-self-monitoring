@@ -1,0 +1,13 @@
+<%- include('./header.ejs') %>
+<ul style="display: flex; list-style: none; padding: 0; text-align: center;">
+    <li style="flex: 1 1 0;"><a href="/behavior/reporting">Reporting</a></li>
+    <li style="flex: 1 1 0;"><a href="/behavior/summary">Summary</a></li>
+    <li style="flex: 1 1 0;">
+        <div style="display: flex">
+        <p style="flex: 1 1 0; margin: 0 8px; text-align: right;">Logged in as: <%= user.email %></p>
+        <form method="POST" action="/auth/logout" style="flex: 0 1 0;">
+            <input type="submit" value="logout" />
+        </form>
+        </div>
+    </li>
+</ul>
