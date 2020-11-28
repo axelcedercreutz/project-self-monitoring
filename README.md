@@ -1,7 +1,7 @@
 # project-self-monitoring
 Project for Web Software Development -course at Aalto University (nov - dec 2020)
 
-A demo of the project can be found: [DEMO] (https://wsd-self-monitoring.herokuapp.com/)
+A demo of the project can be found: [DEMO](https://wsd-self-monitoring.herokuapp.com/)
 
 The documented SQL Commands needed to create the database can be found in "Documentation/database.sql".
 
