@@ -16,4 +16,14 @@ const getYesterdayFormattedDate = (date) => {
     return newDate.toISOString().substring(0,10);
 }
 
-export { getFormattedDate, getYesterdayFormattedDate };
+const getWeekAgoDateFormattedDate = (date) => {
+    if(date){
+    date.setDate(date.getDate() - 7);
+    return date.toISOString().substring(0,10);
+    }
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() - 7);
+    return newDate.toISOString().substring(0,10);
+}
+
+export { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate };
