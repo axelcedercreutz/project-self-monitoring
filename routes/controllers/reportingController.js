@@ -54,8 +54,8 @@ const showReporting = async ({ session, render }) => {
   const formattedDate = today.toISOString().substring(0,10);
   const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
   const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
-  const morningDone = resMorningReport.rowCount > 0;
-  const eveningDone = resEveningReport.rowCount > 0;
+  const morningDone = resMorningReport && resMorningReport.rowCount > 0;
+  const eveningDone = resEveningReport && resEveningReport.rowCount > 0;
   render('home.ejs', {user: user, morningDone: morningDone, eveningDone: eveningDone});
 }
 

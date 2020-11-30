@@ -1,4 +1,4 @@
-import { Application, viewEngine, engineFactory, adapterFactory, Session } from "./deps.js";
+import { Application, viewEngine, engineFactory, adapterFactory, Session, oakCors } from "./deps.js";
 import { router } from "./routes/routes.js";
 import * as middleware from './middlewares/middlewares.js';
 import { getPort } from './database/database.js';
@@ -15,6 +15,7 @@ app.use(middleware.requestTimingMiddleware);
 app.use(middleware.serveStaticFilesMiddleware);
 app.use(middleware.checkIfAuthNeededMiddleware);
 
+app.use(oakCors());
 
 const ejsEngine = engineFactory.getEjsEngine();
 const oakAdapter = adapterFactory.getOakAdapter();

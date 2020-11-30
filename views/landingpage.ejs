@@ -9,12 +9,12 @@
 <p>Here's a glimpse of what you can expect when logging in to your own page</p>
 <br/>
 <div style="display: flex;text-align: center;">
-    <p style="flex: 1 1 0;">Mood today: 4.5</p>
-    <p style="flex: 1 1 0;">Mood yesterday: 4.3</p>
+    <p style="flex: 1 1 0;">Mood today: <%= moodToday %></p>
+    <p style="flex: 1 1 0;">Mood yesterday: <%= moodYesterday %></p>
 </div>
 
 <div style="text-align: center;">
-    <% if(4.5 > 4.3) { %> 
+    <% if( moodToday > moodYesterday ) { %> 
     <p>Things are looking bright today</p>
     <% } else { %> 
         <p>Things are looking gloomy today</p>

@@ -10,7 +10,7 @@ const errorMiddleware = async(context, next) => {
 
 const checkIfAuthNeededMiddleware = async({request, response, session}, next) => {
   const url = request.url.pathname;
-  if(url.startsWith('/auth') || url === ('/')){
+  if(url.startsWith('/auth') || url.startsWith('/api') || url === ('/')){
     await next();
   } else {
     const user = await session.get('user');

@@ -6,11 +6,21 @@ CREATE TABLE users (
 
 CREATE UNIQUE INDEX ON users((lower(email)));
 
-CREATE TABLE morningReports (
+CREATE TABLE morningreports (
   id SERIAL PRIMARY KEY,
-  date TEXT NOT NULL,
+  date DATE NOT NULL,
   sleepDuration FLOAT NOT NULL,
   sleepQuality INTEGER NOT NULL,
+  mood INTEGER NOT NULL,
+  user_id INTEGER REFERENCES users(id)
+);
+
+CREATE TABLE eveningreports (
+  id SERIAL PRIMARY KEY,
+  date DATE NOT NULL,
+  exerciseTime FLOAT NOT NULL,
+  studyTime FLOAT NOT NULL,
+  qualityOfEating INTEGER NOT NULL,
   mood INTEGER NOT NULL,
   user_id INTEGER REFERENCES users(id)
 );
