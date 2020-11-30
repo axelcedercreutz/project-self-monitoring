@@ -42,4 +42,7 @@
         </form>
     </div>
 </div>
+<% if (errors) { %>
+    <%- include('./partials/errors.ejs', errors) %>
+<% } %>
 <%- include('./partials/footer.ejs') %>

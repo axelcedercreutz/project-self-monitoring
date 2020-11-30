@@ -5,10 +5,15 @@ const postMorningReporting = async ({ session, request, response, render}) => {
     const data = await validateMorningReport(request);
     const user = await session.get('user');
     data.userId = user.id;
-    console.log(data);
     if(data.errors) {
         console.log(data);
         data.user = user;
+        const date = new Date();
+        const formattedDate = date.toISOString().substring(0,10);
+        data.date = formattedDate;
+        data.morningDone = false;
+        data.eveningDone = false;
+        console.log(data);
         render('morning.ejs', data);
         return;
     }
@@ -25,9 +30,13 @@ const postEveningReporting = async ({ session, request, response, render}) => {
     const data = await validateEveningReport(request);
     const user = await session.get('user');
     data.userId = user.id;
-    console.log(data);
     if(data.errors) {
         data.user = user;
+        const date = new Date();
+        const formattedDate = date.toISOString().substring(0,10);
+        data.date = formattedDate;
+        data.morningDone = false;
+        data.eveningDone = false;
         render('evening.ejs', data);
         return;
     }
@@ -54,14 +63,14 @@ const showMorningReporting = async({ session, render }) => {
   const user = await session.get('user');
   const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
-  render('morning.ejs', {user: user , date: formattedDate, morningDone: true, eveningDone: true});
+  render('morning.ejs', {user: user , date: formattedDate, morningDone: false, eveningDone: false, errors: {}});
 }
 
 const showEveningReporting = async({ session, render }) => {
 const user = await session.get('user');
 const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
-  render('evening.ejs', {user: user, date: formattedDate, morningDone: false, eveningDone: true });
+  render('evening.ejs', {user: user, date: formattedDate, morningDone: false, eveningDone: true, errors: {}});
 }
 
 export { postMorningReporting, postEveningReporting, showReporting, showMorningReporting, showEveningReporting }

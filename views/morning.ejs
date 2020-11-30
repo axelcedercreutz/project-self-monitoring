@@ -8,7 +8,7 @@
             </div>
             <div style="width:100%">
                 <p>Sleep duration (0.1h accuracy)</p>
-                <input type="number" name="sleepDuration" step="0.1" min="0" style="width:100%"/>
+                <input type="number" name="sleepDuration" step="0.1"  style="width:100%"/>
             </div>
             <div style="width:100%">
                 <p>Sleep quality</p>
@@ -38,4 +38,7 @@
     <div style="flex: 1 1 0;">
     </div>
 </div>
+<% if (errors) { %>
+    <%- include('./partials/errors.ejs', errors) %>
+<% } %>
 <%- include('./partials/footer.ejs') %>

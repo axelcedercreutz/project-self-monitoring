@@ -9,8 +9,8 @@
     <input type="password" name="verification" />
     <input type="submit" value="Submit!" />
 </form>
-<a href="/auth/login">Want to login an existing user?</a>
 <% if (errors) { %>
     <%- include('./partials/errors.ejs', errors) %>
 <% } %>
+<a href="/auth/login">Want to login an existing user?</a>
 <%- include('./partials/footer.ejs') %>
