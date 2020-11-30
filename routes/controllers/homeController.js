@@ -1,13 +1,12 @@
 import { getAllByDate } from "../../services/summaryServices.js";
+import { getFormattedDate, getYesterdayFormattedDate } from "../../utils/helpers.js";
 
 const showLandingPage = async ({ render }) => {
-  const date = new Date()
-  const allDataToday = await getAllByDate(date.toISOString().substring(0,10));
+  const date = getFormattedDate();
+  const allDataToday = await getAllByDate(date);
   const moodToday = Number(allDataToday[0].moodavg);
-  
-  console.log(allDataToday);
-  date.setDate(date.getDate() - 1);
-   const allDataYesterday = await getAllByDate(date.toISOString().substring(0,10));
+  const yesterday = getYesterdayFormattedDate();
+  const allDataYesterday = await getAllByDate(yesterday);
   const moodYesterday = Number(allDataYesterday[0].moodavg);
   render('landingpage.ejs', {moodToday: moodToday, moodYesterday: moodYesterday});
 }

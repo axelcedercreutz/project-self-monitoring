@@ -1,0 +1,25 @@
+<% if(summaryData.length > 0) { %>
+<h2>Month:<%= summaryData.month %> </h2>
+<table>
+    <thead>
+        <tr>
+            <th>Average sleep quality</th>
+            <th>Average sleep dration</th>
+            <th>Average study dration</th>
+            <th>Average exercise dration</th>
+            <th>Average mood</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= summaryData.avg_sleepquality %></td>
+            <td><%= summaryData.avg_sleepduration %></td>
+            <td><%= summaryData.avg_study %></td>
+            <td><%= summaryData.avg_exercise %></td>
+            <td><%= summaryData.avg_mood %></td>
+        </tr>
+    </tbody>
+</table>
+<% } else { %>
+    <h2>No data for selected month </h2>
+<% } %>

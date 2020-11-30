@@ -1,11 +1,27 @@
 import { executeQuery } from "../database/database.js";
 
 
+/*   SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood1 + mood2 /2) as avg_mood
+FROM (
+SELECT morningreports.date, sleepQuality, sleepDuration,exercisetime, studytime, morningreports.mood as mood1, eveningreports.mood as mood2 FROM morningreports
+LEFT JOIN
+eveningreports ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = 1 and morningreports.date = eveningreports.date
+) AS subquery
+GROUP BY date
+*/
+
 const getOneUserAverageMonth = async (userId, month) => {
-    const query_one = "SELECT date, AVG(sleepDuration) as sleepDurationAvg, AVG(mood) as moodAvg FROM morningreports WHERE user_id = $1 AND EXTRACT(MONTH FROM date) = $2";
-    const query_two = "SELECT date, AVG(exercisetime) as exersisetimeAvg FROM eveningreports WHERE user_id = $1 AND EXTRACT(MONTH FROM date) = $2";
-    const query = `WITH query_one AS (${query_one}), query_two AS (${query_two}) SELECT EXTRACT(MONTH FROM date) as month, sleepDurationAvg, moodAvg, exersisetimeAvg FROM query_one LEFT JOIN query_two using (date) GROUP BY EXTRACT(MONTH FROM date)`;
-    console.log(query);
+    const query = `
+    SELECT DISTINCT EXTRACT(Month FROM date) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
+        FROM (
+            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
+            LEFT JOIN
+            eveningreports
+                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = 1 AND morningreports.date = eveningreports.date
+            WHERE morningreports.user_id = $1 AND EXTRACT(Month FROM morningreports.date) = $2
+        ) AS subquery
+    GROUP BY EXTRACT(Month FROM date)
+    `;
     const res = await executeQuery(query, userId, month);
         if (res && res.rowCount > 0) {
     return res.rowsOfObjects();
@@ -13,29 +29,18 @@ const getOneUserAverageMonth = async (userId, month) => {
     return 'no morning reports for specific month';
 }
 
-const getAllUsersMorningReportsForSpecificDate = async(date) => {
-    const res = await executeQuery("SELECT * FROM morningreports WHERE date = $1 ", date);
-    if (res && res.rowCount > 0) {
-    return res.rowsOfObjects();
-    }
-    return 'no morning reports for specific date';
-}
-
-const getAllUsersEveningReportsForSpecificDate = async(date) => {
-    const res = await executeQuery("SELECT * FROM eveningReports WHERE date = $1 ", date);
-    if (res && res.rowCount > 0) {
-    return res.rowsOfObjects();
-    }
-    return 'no evening reports for specific date';
-}
-
 const getAllByDate = async(date) => {
-    const query_one = "SELECT date, AVG(sleepDuration) as sleepDurationAvg, ROUND(AVG(mood)) as moodAvg FROM morningreports WHERE date = $1 GROUP BY 1 ORDER BY 1";
-    const query_two = "SELECT date, AVG(exercisetime) as exersisetimeAvg FROM eveningreports WHERE date = $1 GROUP BY 1 ORDER BY 1";
-    const query = `WITH query_one AS (${query_one}), query_two AS (${query_two}) SELECT * FROM query_one LEFT JOIN query_two using (date)`;
-    console.log(query);
+    const query = `SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood) as avg_mood
+        FROM (
+            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
+            LEFT JOIN
+            eveningreports
+                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = 1 AND morningreports.date = eveningreports.date
+            WHERE morningreports.date = $1
+        ) AS subquery
+    GROUP BY date
+    `;
     const res = await executeQuery(query, date);
-    console.log(res.rowCount);
     if(res && res.rowCount > 0) {
         return res.rowsOfObjects();
     } else {
