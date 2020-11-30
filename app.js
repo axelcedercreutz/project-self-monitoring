@@ -29,5 +29,4 @@ app.use(router.routes());
 if (!Deno.env.get('TEST_ENVIRONMENT')) {
     app.listen({ port: getPort() });
   }
-  
-  export default app;
+export { app };

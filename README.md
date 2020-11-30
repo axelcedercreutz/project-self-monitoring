@@ -11,7 +11,7 @@ In order to run the project locally, download the repo, go to the root-folder an
 ```
 deno run --allow-env --allow-net --allow-read --allow-write --unstable app.js;
 ```
-in order to run the tests locally, go to each folder of where the test is and run:
+in order to run the tests locally, go to the root folder and run:
 ```
-deno test --coverage --unstable {NAME_OF_THE_FILE_BEING_TESTED}.js;
+deno test --allow-env --allow-read --allow-net;
 ```
