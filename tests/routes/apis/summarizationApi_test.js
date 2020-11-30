@@ -14,7 +14,8 @@ Deno.test("GET to /api/summary/:year/:month/:day should return 200 on a date tha
 });
 
 Deno.test("GET to /api/summary/:year/:month/:day should return 404 on a date that there is no data", async () => {
-  const testClient = await superoak(app);
-  await testClient.get("/api/summary/2020/01/30")
-      .expect(200);
+    const testClient = await superoak(app);
+    await testClient.get("/api/summary/2020/01/30")
+        .expect('No data found on selected date')
+        .expect(404);
 });

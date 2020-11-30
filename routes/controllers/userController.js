@@ -15,6 +15,7 @@ const postRegistrationForm = async({request, response, render}) => {
 
   if (password !== verification) {
     response.body = 'The entered passwords did not match';
+    response.status = 401;
     return;
   }
 
@@ -25,8 +26,7 @@ const postRegistrationForm = async({request, response, render}) => {
   }
 
   const hash = await bcrypt.hash(password);
-  await addUserToDb(email, hash)
-  response.body = 'Registration successful!';
+  await addUserToDb(email, hash);
   response.redirect('/auth/login');
 };
 

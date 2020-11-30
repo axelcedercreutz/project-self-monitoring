@@ -18,7 +18,7 @@ const getApiSummary = async ({ response }) => {
 const getSpecificDayApiSummary = async ({ params, response }) => {
     const newDate = `${params.year}-${params.month}-${params.day}`;
     const allData = await getAllByDate(newDate);
-    if(allData){
+    if(allData && Array.isArray(allData)){
         response.body = allData;
         response.status = 200;
     } else {
