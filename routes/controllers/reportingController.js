@@ -11,9 +11,12 @@ const postMorningReporting = async ({ session, request, response, render}) => {
         const date = new Date();
         const formattedDate = date.toISOString().substring(0,10);
         data.date = formattedDate;
-        data.morningDone = false;
-        data.eveningDone = false;
-        console.log(data);
+        const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
+        const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
+        const morningDone = resMorningReport && resMorningReport.rowCount > 0;
+        const eveningDone = resEveningReport && resEveningReport.rowCount > 0;
+        data.morningDone = morningDone;
+        data.eveningDone = eveningDone;
         render('morning.ejs', data);
         return;
     }
@@ -35,8 +38,12 @@ const postEveningReporting = async ({ session, request, response, render}) => {
         const date = new Date();
         const formattedDate = date.toISOString().substring(0,10);
         data.date = formattedDate;
-        data.morningDone = false;
-        data.eveningDone = false;
+        const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
+        const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
+        const morningDone = resMorningReport && resMorningReport.rowCount > 0;
+        const eveningDone = resEveningReport && resEveningReport.rowCount > 0;
+        data.morningDone = morningDone;
+        data.eveningDone = eveningDone;
         render('evening.ejs', data);
         return;
     }
@@ -63,14 +70,22 @@ const showMorningReporting = async({ session, render }) => {
   const user = await session.get('user');
   const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
-  render('morning.ejs', {user: user , date: formattedDate, morningDone: false, eveningDone: false, errors: {}});
+  const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
+  const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
+  const morningDone = resMorningReport && resMorningReport.rowCount > 0;
+  const eveningDone = resEveningReport && resEveningReport.rowCount > 0;
+  render('morning.ejs', {user: user , date: formattedDate, morningDone: morningDone, eveningDone: eveningDone, errors: {}});
 }
 
 const showEveningReporting = async({ session, render }) => {
-const user = await session.get('user');
-const date = new Date();
+  const user = await session.get('user');
+  const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
-  render('evening.ejs', {user: user, date: formattedDate, morningDone: false, eveningDone: true, errors: {}});
+  const resMorningReport = await getMorningReportBasedOnDate(formattedDate, user.id);
+  const resEveningReport = await getEveningReportBasedOnDate(formattedDate, user.id);
+  const morningDone = resMorningReport && resMorningReport.rowCount > 0;
+  const eveningDone = resEveningReport && resEveningReport.rowCount > 0;
+  render('evening.ejs', {user: user, date: formattedDate, morningDone: morningDone, eveningDone: eveningDone, errors: {}});
 }
 
 export { postMorningReporting, postEveningReporting, showReporting, showMorningReporting, showEveningReporting }

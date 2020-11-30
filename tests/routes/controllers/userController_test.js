@@ -15,7 +15,6 @@ Deno.test("GET to /auth/registration should always return HTML-document and stat
         .expect(200);
 });
 
-
 Deno.test("POST to /auth/login should status 401 if email not found", async () => {
     const testClient = await superoak(app);
     await testClient.post("/auth/login")
