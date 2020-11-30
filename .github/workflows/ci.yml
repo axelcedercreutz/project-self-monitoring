@@ -31,4 +31,4 @@ jobs:
           deno-version: "v1.5.4"
 
       - name: Run tests
-        run: deno test --allow-all --unstable
+        run: deno test --allow-env --allow-read --allow-net;
