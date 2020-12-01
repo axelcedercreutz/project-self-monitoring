@@ -1,13 +1,13 @@
-<form action="POST" action="/behavior/summary/week">
+<form method="POST" action="/behavior/summary/week">
     <div style="width:100%">
         <p>Date</p>
-        <input type="week" name="week" value="2020-W<%= weekSummary.week %>"/>
+        <input type="week" name="week" value="2020-W<%= week %>"/>
     </div>
     <input type="submit" value="Change week!" />
 </form>
 
-<% if(weekSummary) { %>
-<h2>Week:<%= weekSummary.week %> </h2>
+<% if(weekSummary.length > 0) { %>
+<h2>Week:<%= weekSummary[0].week %> </h2>
 <table>
     <thead>
         <tr>
@@ -20,11 +20,11 @@
     </thead>
     <tbody>
         <tr>
-            <td><%= weekSummary.avg_sleepquality %></td>
-            <td><%= weekSummary.avg_sleepduration %></td>
-            <td><%= weekSummary.avg_study %></td>
-            <td><%= weekSummary.avg_exercise %></td>
-            <td><%= weekSummary.avg_mood %></td>
+            <td><%= weekSummary[0].avg_sleepquality %></td>
+            <td><%= weekSummary[0].avg_sleepduration %></td>
+            <td><%= weekSummary[0].avg_study %></td>
+            <td><%= weekSummary[0].avg_exercise %></td>
+            <td><%= weekSummary[0].avg_mood %></td>
         </tr>
     </tbody>
 </table>

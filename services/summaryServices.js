@@ -1,22 +1,24 @@
 import { executeQuery } from "../database/database.js";
 
 const getOneUserAverageMonth = async (userId, month) => {
+    console.log(month);
     const query = `
     SELECT DISTINCT EXTRACT(Month FROM date) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
         FROM (
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
             eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = 1 AND morningreports.date = eveningreports.date
-            WHERE morningreports.user_id = $1 AND EXTRACT(Month FROM morningreports.date) = '11'
+                ON morningreports.user_id = eveningreports.user_id AND morningreports.date = eveningreports.date
+            WHERE morningreports.user_id = $1 AND EXTRACT(Month FROM morningreports.date) = $2
         ) AS subquery
     GROUP BY EXTRACT(Month FROM date)
     `;
-    const res = await executeQuery(query, userId);
+    const res = await executeQuery(query, userId, month);
         if (res && res.rowCount > 0) {
     return res.rowsOfObjects();
     }
-    return 'no reports for specific month';
+    console.log('no reports for specific month');
+    return
 }
 
 const getOnUserAverageByStartAndEndDate = async (userId, startDate, endDate) => {
@@ -34,7 +36,8 @@ const query = `SELECT DISTINCT date_part('week', date) as week, AVG(sleepduratio
     if(res && res.rowCount > 0) {
         return res.rowsOfObjects();
     } else {
-        return 'No data found on selected week';
+        console.log('No data found on selected week');
+        return;
     }
 }
 

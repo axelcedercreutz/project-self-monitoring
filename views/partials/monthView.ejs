@@ -1,12 +1,12 @@
-<form action="POST" action="/behavior/summary/month">
+<form method="POST" action="/behavior/summary/month">
     <div style="width:100%">
         <p>Month</p>
-        <input type="month" name="month" value="2020-<%= summaryData.month %>"/>
+        <input type="month" name="month" value="2020-<%= month %>"/>
     </div>
     <input type="submit" value="Change month!" />
 </form>
-<% if(summaryData) { %>
-<h2>Month:<%= summaryData.month %> </h2>
+<% if(summaryData.length > 0) { %>
+<h2>Month:<%= summaryData[0].month %> </h2>
 <table>
     <thead>
         <tr>
@@ -19,11 +19,11 @@
     </thead>
     <tbody>
         <tr>
-            <td><%= summaryData.avg_sleepquality %></td>
-            <td><%= summaryData.avg_sleepduration %></td>
-            <td><%= summaryData.avg_study %></td>
-            <td><%= summaryData.avg_exercise %></td>
-            <td><%= summaryData.avg_mood %></td>
+            <td><%= summaryData[0].avg_sleepquality %></td>
+            <td><%= summaryData[0].avg_sleepduration %></td>
+            <td><%= summaryData[0].avg_study %></td>
+            <td><%= summaryData[0].avg_exercise %></td>
+            <td><%= summaryData[0].avg_mood %></td>
         </tr>
     </tbody>
 </table>

@@ -3,7 +3,7 @@ import { Router } from "../deps.js";
 import { showLandingPage } from './controllers/homeController.js';
 import { postMorningReporting, showReporting, showMorningReporting, showEveningReporting, postEveningReporting } from './controllers/reportingController.js';
 import { postRegistrationForm, postLoginForm, postLogout, showLoginForm, showRegistrationForm } from './controllers/userController.js';
-import { showSummary } from './controllers/summaryController.js';
+import { showSummary, postChangeWeek, postChangeMonth } from './controllers/summaryController.js';
 import { getApiSummary, getSpecificDayApiSummary } from "./apis/summarizationApi.js";
 
 
@@ -18,6 +18,8 @@ router.get('/behavior/reporting/evening', showEveningReporting);
 router.post('/behavior/reporting/evening', postEveningReporting);
 
 router.get('/behavior/summary', showSummary);
+router.post('/behavior/summary/week', postChangeWeek);
+router.post('/behavior/summary/month', postChangeMonth);
 
 router.get('/auth/login', showLoginForm);
 router.post('/auth/login', postLoginForm);
