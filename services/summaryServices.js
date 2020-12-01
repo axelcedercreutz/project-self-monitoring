@@ -8,7 +8,7 @@ const getOneUserAverageMonth = async (userId, month) => {
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
             eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.date = eveningreports.date
+                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = $1 AND morningreports.date = eveningreports.date
             WHERE morningreports.user_id = $1 AND EXTRACT(Month FROM morningreports.date) = $2
         ) AS subquery
     GROUP BY EXTRACT(Month FROM date)
@@ -27,7 +27,7 @@ const query = `SELECT DISTINCT date_part('week', date) as week, AVG(sleepduratio
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
             eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.date = eveningreports.date
+                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = $1 AND morningreports.date = eveningreports.date
             WHERE morningreports.user_id = $1 AND morningreports.date >= $2 AND morningreports.date <= $3
         ) AS subquery
     GROUP BY week
