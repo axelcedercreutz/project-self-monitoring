@@ -70,6 +70,9 @@ const showMorningReporting = async({ session, render }) => {
   const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
   const reportToday = await getReportBasedOnDate(formattedDate, user.id);
+  if(!reportToday){
+    render('morning.ejs', {user: user , date: formattedDate, sleepDuration: 0, morningDone: false, eveningDone: false, errors: {}});
+  }
   const morningDone = reportToday && reportToday.morningmood;
   const eveningDone = reportToday && reportToday.eveningmood;
   render('morning.ejs', {user: user , date: formattedDate, sleepDuration: (reportToday.sleepduration || 0), morningDone: morningDone, eveningDone: eveningDone, errors: {}});
@@ -80,6 +83,9 @@ const showEveningReporting = async({ session, render }) => {
   const date = new Date();
   const formattedDate = date.toISOString().substring(0,10);
   const reportToday = await getReportBasedOnDate(formattedDate, user.id);
+  if(!reportToday){
+    render('evening.ejs', {user: user , date: formattedDate, exerciseTime: 0, studyTime: 0, morningDone: false, eveningDone: false, errors: {}});
+  }
   const morningDone = reportToday && reportToday.morningmood;
   const eveningDone = reportToday && reportToday.eveningmood;
   render('evening.ejs', {user: user, date: formattedDate, exerciseTime: (reportToday.exercisetime || 0), studyTime: (reportToday.studytime || 0), morningDone: morningDone, eveningDone: eveningDone, errors: {}});
