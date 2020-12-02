@@ -9,7 +9,13 @@ Deno.test("GET to /api/summary should return data found for the past week", asyn
 
 Deno.test("GET to /api/summary/:year/:month/:day should return 200 on a date that there is data", async () => {
   const testClient = await superoak(app);
-  await testClient.get("/api/summary/2020/11/30")
+  await testClient.get("/api/summary/2020/12/02")
+      .expect(200);
+});
+
+Deno.test("GET to /api/summary/:year/:month/:day should return 200 on a date that there is data even when given without 0", async () => {
+  const testClient = await superoak(app);
+  await testClient.get("/api/summary/2020/12/2")
       .expect(200);
 });
 

@@ -51,4 +51,12 @@ const getWeekNumber = (d) => {
     return [d.getUTCFullYear(), weekNo];
 }
 
-export { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate, getDateOfWeek, getWeekNumber };
+const getFormattedMonth = (m) => {
+    return m > 9 ? m : "0"+m;
+}
+
+const getFormattedWeek = (w) => {
+    return w > 9 ? w : "0"+w;
+}
+
+export { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate, getDateOfWeek, getWeekNumber,getFormattedMonth, getFormattedWeek };

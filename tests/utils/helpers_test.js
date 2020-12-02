@@ -1,4 +1,4 @@
-import { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate } from '../../utils/helpers.js';
+import { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate, getFormattedWeek, getFormattedMonth, getDateOfWeek, getWeekNumber } from '../../utils/helpers.js';
 import { assertEquals } from '../../deps.js';
 
 
@@ -41,3 +41,35 @@ Deno.test("Function getWeekAgoDateFormattedDate(date) returns date -7 days forma
     const formattedDate = weekAgo.toISOString().substring(0,10);
     assertEquals(getWeekAgoDateFormattedDate(date), formattedDate);
 });
+
+Deno.test("Function getFormattedWeek(w) returns w if w > 9", () => {
+    const w = 10;
+    assertEquals(getFormattedWeek(w), w);
+})
+Deno.test("Function getFormattedWeek(w) returns '0w' if w <= 9", () => {
+    const w = 2;
+    const returnValue = "02";
+    assertEquals(getFormattedWeek(w), returnValue);
+})
+
+Deno.test("Function getFormattedMonth(m) returns m if m > 9", () => {
+    const m = 10;
+    assertEquals(getFormattedMonth(m), m);
+})
+Deno.test("Function getFormattedMonth(m) returns '0m' if m <= 9", () => {
+    const m = 2;
+    const returnValue = "02";
+    assertEquals(getFormattedMonth(m), returnValue);
+})
+
+Deno.test("Function getDateOfWeek(w,y) return '2020-11-29T22:00:00.000Z' if given 2020 and 49", ()=> {
+    const y = '2020';
+    const w = '49';
+    const returnValue = new Date(2020, 10, 30);
+    assertEquals(getDateOfWeek(w, y), returnValue);
+})
+
+Deno.test("Function getWeekNumber(d) return [2020, 49] if given 2020-11-30", ()=> {
+    const returnValue = new Date(2020, 10, 30);
+    assertEquals(getWeekNumber(returnValue), [2020,49]);
+})

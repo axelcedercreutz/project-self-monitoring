@@ -33,7 +33,7 @@ Deno.test("POST to /auth/login should return HTML-document and status OK if succ
     const testClient = await superoak(app);
     await testClient.post("/auth/login")
         .send('email=my@email.com&&password=password')
-        .expect('The email is already reserved');
+        .expect(200);
 });
 
 Deno.test("POST to /auth/registration should return status OK if successful", async () => {
@@ -41,18 +41,10 @@ Deno.test("POST to /auth/registration should return status OK if successful", as
     const randomNumber = 1000000000 * Math.random();
     await testClient.post("/auth/registration")
         .send(`email=${randomNumber}@email.com&&password=password&&verification=password`)
-        .expect('{body: "Registration successful!');
+        .expect(200);
 });
 */
-
-Deno.test("POST to /auth/registration should return status 401 if verification is not same ass password", async () => {
-    const testClient = await superoak(app);
-    await testClient.post("/auth/registration")
-        .send('email=me@email.com&&password=password&&verification=pas')
-        .expect(401);
-});
-
-Deno.test("POST to /auth/registration should return status 401 if verification is not same ass password", async () => {
+Deno.test("POST to /auth/registration should return status 401 if verification is not same as password", async () => {
     const testClient = await superoak(app);
     await testClient.post("/auth/registration")
         .send('email=me@email.com&&password=password&&verification=pas')

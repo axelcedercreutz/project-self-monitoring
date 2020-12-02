@@ -1,5 +1,5 @@
 import { getAllByDate, getAllByStartAndEndDate } from "../../services/summaryServices.js";
-import { getFormattedDate, getWeekAgoDateFormattedDate } from "../../utils/helpers.js";
+import { getFormattedDate, getFormattedMonth, getFormattedWeek, getWeekAgoDateFormattedDate } from "../../utils/helpers.js";
 
 const getApiSummary = async ({ response }) => {
     const endDate = getFormattedDate();
@@ -15,7 +15,9 @@ const getApiSummary = async ({ response }) => {
 }
 
 const getSpecificDayApiSummary = async ({ params, response }) => {
-    const newDate = `${params.year}-${params.month}-${params.day}`;
+    const formattedMonth = getFormattedMonth(params.month);
+    const formattedWeek = getFormattedWeek(params.day);
+    const newDate = `${params.year}-${formattedMonth}-${formattedWeek}`;
     const allData = await getAllByDate(newDate);
     if(allData && Array.isArray(allData)){
         response.body = allData;

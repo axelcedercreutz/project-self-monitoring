@@ -1,5 +1,5 @@
 import { getOneUserAverageMonth, getOnUserAverageByWeek } from "../../services/summaryServices.js";
-import { getDateOfWeek, getWeekNumber } from "../../utils/helpers.js";
+import { getDateOfWeek, getFormattedMonth, getFormattedWeek, getWeekNumber } from "../../utils/helpers.js";
 
 const renderingHelper = (render, summaryData, allDataWeek, user, formattedMonth, formattedWeek) => {
     if(summaryData){
@@ -22,8 +22,8 @@ const showSummary = async ({render, session}) => {
     const summaryData = await getOneUserAverageMonth(user.id, month);
     const firstWeekOfMonth = getWeekNumber(date)[1] - 1;
     const allDataWeek = await getOnUserAverageByWeek(user.id, firstWeekOfMonth);
-    const formattedMonth = month > 9 ? month : "0"+month;
-    const formattedWeek = firstWeekOfMonth > 9 ? firstWeekOfMonth : '0'+firstWeekOfMonth;
+    const formattedMonth = getFormattedMonth(month);
+    const formattedWeek = getFormattedWeek(firstWeekOfMonth);
     renderingHelper(render, summaryData, allDataWeek, user, formattedMonth, formattedWeek)
 }
 
@@ -38,8 +38,8 @@ const postChangeWeek = async({render, request, session}) => {
     const numberOfMonth = mondayOfWeek.getMonth() +1;
     const summaryData = await getOneUserAverageMonth(user.id, numberOfMonth);
     const allDataWeek = await getOnUserAverageByWeek(user.id,numberOfWeek);
-    const formattedMonth = numberOfMonth > 9 ? numberOfMonth : "0"+numberOfMonth;
-    const formattedWeek = numberOfWeek > 9 ? numberOfWeek : "0"+numberOfWeek;
+    const formattedMonth = getFormattedMonth(month);
+    const formattedWeek = getFormattedWeek(firstWeekOfMonth);
     renderingHelper(render, summaryData, allDataWeek, user, formattedMonth, formattedWeek);
 }
 
@@ -54,8 +54,8 @@ const postChangeMonth = async({render, request, session}) => {
     const endDate = new Date(formattedYear, numberOfMonth -1, 8);
     const firstWeekOfMonth = getWeekNumber(endDate)[1];
     const allDataWeek = await getOnUserAverageByWeek(user.id,firstWeekOfMonth);
-    const formattedMonth = numberOfMonth > 9 ? numberOfMonth : "0"+numberOfMonth;
-    const formattedWeek = firstWeekOfMonth > 9 ? firstWeekOfMonth : '0'+firstWeekOfMonth;
+    const formattedMonth = getFormattedMonth(month);
+    const formattedWeek = getFormattedWeek(firstWeekOfMonth);
     renderingHelper(render, summaryData, allDataWeek, user, formattedMonth, formattedWeek)
 }
 
