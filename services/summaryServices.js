@@ -3,7 +3,7 @@ import { executeQuery } from "../database/database.js";
 const getOneUserAverageMonth = async (userId, month) => {
     console.log(month);
     const query = `
-    SELECT DISTINCT EXTRACT(Month FROM date) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
+    SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
         FROM (
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
@@ -22,7 +22,7 @@ const getOneUserAverageMonth = async (userId, month) => {
 }
 
 const getOnUserAverageByStartAndEndDate = async (userId, startDate, endDate) => {
-const query = `SELECT DISTINCT EXTRACT(WEEK FROM date) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
+const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
         FROM (
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
@@ -61,7 +61,7 @@ const getAllByDate = async(date) => {
 }
 
 const getAllByStartAndEndDate = async (startDate, endDate) => {
-    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date) as week, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood) as avg_mood
+    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood) as avg_mood
         FROM (
             SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
             LEFT JOIN
