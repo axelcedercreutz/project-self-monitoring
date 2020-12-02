@@ -72,6 +72,7 @@ const showMorningReporting = async({ session, render }) => {
   const reportToday = await getReportBasedOnDate(formattedDate, user.id);
   if(!reportToday){
     render('morning.ejs', {user: user , date: formattedDate, sleepDuration: 0, morningDone: false, eveningDone: false, errors: {}});
+    return;
   }
   const morningDone = reportToday && reportToday.morningmood;
   const eveningDone = reportToday && reportToday.eveningmood;
@@ -85,6 +86,7 @@ const showEveningReporting = async({ session, render }) => {
   const reportToday = await getReportBasedOnDate(formattedDate, user.id);
   if(!reportToday){
     render('evening.ejs', {user: user , date: formattedDate, exerciseTime: 0, studyTime: 0, morningDone: false, eveningDone: false, errors: {}});
+    return;
   }
   const morningDone = reportToday && reportToday.morningmood;
   const eveningDone = reportToday && reportToday.eveningmood;
