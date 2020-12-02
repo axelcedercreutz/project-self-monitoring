@@ -1,5 +1,5 @@
 import { getOneUserAverageMonth, getOnUserAverageByWeek } from "../../services/summaryServices.js";
-import { getDateOfWeek, getFormattedDate, getWeekAgoDateFormattedDate, getWeekNumber } from "../../utils/helpers.js";
+import { getDateOfWeek, getWeekNumber } from "../../utils/helpers.js";
 
 const renderingHelper = (render, summaryData, allDataWeek, user, formattedMonth, formattedWeek) => {
     if(summaryData){

@@ -26,16 +26,6 @@ const getWeekAgoDateFormattedDate = (date) => {
     return newDate.toISOString().substring(0,10);
 }
 
-const getWeekForwardDateFormattedDate = (date) => {
-    if(date){
-    date.setDate(date.getDate() + 7);
-    return date.toISOString().substring(0,10);
-    }
-    const newDate = new Date();
-    newDate.setDate(newDate.getDate() + 7);
-    return newDate.toISOString().substring(0,10);
-}
-
 const getDateOfWeek = (w, y) => {
     var simple = new Date(y, 0, 1 + (w - 1) * 7);
     var dow = simple.getDay();
@@ -61,4 +51,4 @@ const getWeekNumber = (d) => {
     return [d.getUTCFullYear(), weekNo];
 }
 
-export { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate, getDateOfWeek, getWeekForwardDateFormattedDate, getWeekNumber };
+export { getFormattedDate, getYesterdayFormattedDate, getWeekAgoDateFormattedDate, getDateOfWeek, getWeekNumber };
