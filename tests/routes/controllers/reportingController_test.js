@@ -18,7 +18,6 @@ Deno.test("GET to /behavior/reporting should return HTML-document and status OK 
         .set('Session', `user=${user}`)
         .expect("Content-Type", "text/html; charset=utf-8")
         .expect(200);
-    //console.log(response);
 });
 
 Deno.test("GET to /behavior/reporting/morning should always return HTML-document and status OK", async () => {

@@ -19,25 +19,37 @@
                 <p>Regularity and quality of eating</p>
                 <div style="display: flex;">
                 <% for(var i = 1; i <= 5; i++) { %>
-                    
-                    <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" required>
-                    <label for="<%= i %>"><%= i %></label><br>
+                    <% if(eveningMood === i) { %>
+                        <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" checked required>
+                        <label for="<%= i %>"><%= i %></label>
+                    <% } else { %>    
+                        <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" required>
+                        <label for="<%= i %>"><%= i %></label>
+                    <% } %>
                 <% } %>
                 </div>
             </div>
             <div style="width:100%">
                 <p>Generic mood</p>
                 <div style="display: flex;">
-                <% for(var i = 1; i <= 5; i++) { %>
-                    
-                    <input type="radio" id="<%= i %>" name="mood" value="<%= i %>" required>
-                    <label for="<%= i %>"><%= i %></label><br>
+                    <% for(var i = 1; i <= 5; i++) { %>
+                <% if(eveningMood === i) { %>
+                        <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" checked required>
+                        <label for="<%= i %>"><%= i %></label><br>
+                    <% } else { %>
+                        <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" required>
+                        <label for="<%= i %>"><%= i %></label><br>
+                    <% } %>
                 <% } %>
                 </div>
             </div>
             <div></div>
             <div style="width:100%; margin-top: 30px;">
-                <input type="submit" value="Submit report!" />
+                <% if(eveningDone) { %>
+                    <input type="submit" value="Update report!" />
+                <% } else { %>
+                    <input type="submit" value="Submit report!" />
+                <% } %>
             </div>
         </form>
     </div>

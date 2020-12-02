@@ -5,7 +5,6 @@ import { validateRegistration } from '../../middlewares/validations.js';
 const postRegistrationForm = async({request, response, render}) => {
   const data = await validateRegistration(request);
   if(data.errors) {
-    console.log(data);
     render('register.ejs', data);
     return;
   }

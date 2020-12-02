@@ -1,7 +1,6 @@
 import { executeQuery } from "../database/database.js";
 
 const getOneUserAverageMonth = async (userId, month) => {
-    console.log(month);
     const query = `
     SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
@@ -17,8 +16,7 @@ const getOneUserAverageMonth = async (userId, month) => {
 }
 
 const getOnUserAverageByWeek = async (userId, week) => {
-    console.log(week);
-const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
+    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE reports.user_id = $1 AND EXTRACT(WEEK FROM reports.date::timestamp) = $2
     GROUP BY week
@@ -42,7 +40,8 @@ const getAllByDate = async(date) => {
     if(res && res.rowCount > 0) {
         return res.rowsOfObjects();
     } else {
-        return 'No data found on selected date';
+        console.log('No data found on selected date');
+        return;
     }
 }
 //FIX PAST 7 DAYS TO NOT USE WEEKS
@@ -56,7 +55,8 @@ const getAllByStartAndEndDate = async (startDate, endDate) => {
     if(res && res.rowCount > 0) {
         return res.rowsOfObjects();
     } else {
-        return 'No data found on selected week';
+        console.log('No data found on selected week');
+        return;
     }
 }
 

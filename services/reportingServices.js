@@ -26,7 +26,6 @@ const addReportMorningToDb = async(data) => {
 }
 
 const addReportEveningToDb = async(data) => {
-    console.log(data);
    await executeQuery("INSERT INTO reports (date, exerciseTime, studyTime, qualityOfEating, eveningMood, user_id) VALUES ($1, $2, $3, $4, $5, $6);", data.date, data.exerciseTime, data.studyTime, data.qualityOfEating, data.mood, data.userId);
 }
 
