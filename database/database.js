@@ -1,15 +1,12 @@
 
-import { Client } from "../deps.js";
+import { Client, Pool } from "../deps.js";
 import { dbconfig } from "../config/config.js";
 
-const getClient = () => {
-  const DATABASE_URL = Deno.env.toObject().DATABASE_URL;
-  if(DATABASE_URL) {
-    const client = new Client(DATABASE_URL);
-    return client;
-  }
-  return new Client(dbconfig.database);
-}
+const CONCURRENT_CONNECTIONS = 5;
+
+const DATABASE_URL = Deno.env.toObject().DATABASE_URL || dbconfig.database;
+
+const connectionPool = new Pool(DATABASE_URL, CONCURRENT_CONNECTIONS);
 
 const getPort = () => {
   let port = 7777;
@@ -21,15 +18,16 @@ const getPort = () => {
 }
 
 const executeQuery = async(query, ...args) => {
-  const client = getClient();
+  const client = await connectionPool.connect();
   try {
-    await client.connect();
-    return await client.query(query, ...args);
+      return await client.query(query, ...args);
   } catch (e) {
-    console.log(e);
+      console.log(e);  
   } finally {
-    await client.end();
+      client.release();
   }
+  
+  return null;
 }
 
 export { executeQuery, getPort };

@@ -9,3 +9,4 @@ export { config } from "https://deno.land/x/dotenv/mod.ts";
 export { validate, required, minLength, isNumber, isEmail, minNumber, numberBetween } from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
 export { assertEquals } from "https://deno.land/std@0.78.0/testing/asserts.ts";
 export { superoak } from "https://deno.land/x/superoak@2.3.1/mod.ts";
+export { Pool } from "https://deno.land/x/postgres@v0.4.5/mod.ts";
