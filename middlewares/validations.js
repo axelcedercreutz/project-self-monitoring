@@ -48,7 +48,6 @@ const getDataEveningReport = async (request) => {
   if (request) {
     const body = request.body();
     const params = await body.value;
-    console.log(params.get('exerciseTime'))
     data.date = params.get("date").substring(0,10);
     data.exerciseTime = Number(params.get("exerciseTime"));
     data.studyTime = Number(params.get("studyTime"));

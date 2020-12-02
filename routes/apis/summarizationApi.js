@@ -5,7 +5,6 @@ const getApiSummary = async ({ response }) => {
     const endDate = getFormattedDate();
     const startDate = getWeekAgoDateFormattedDate();
     const allDataWeek = await getAllByStartAndEndDate(startDate, endDate);
-    console.log(allDataWeek);
     if(allDataWeek && Array.isArray(allDataWeek)){
         response.body = allDataWeek[0];
         response.status = 200;

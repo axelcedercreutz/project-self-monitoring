@@ -1,33 +1,34 @@
 import { executeQuery } from "../database/database.js";
 
-const getMorningReportBasedOnDate = async(date, userId) => {
-    const res = await await executeQuery("SELECT * FROM morningreports WHERE date = $1 AND user_id = $2", date, userId);
+const getReportBasedOnDate = async (date, userId) => {
+    const res = await executeQuery("SELECT * FROM reports WHERE date = $1 AND user_id = $2", date, userId);
+    if(res && res.rowCount > 0) {
+        return res.rowsOfObjects()[0];
+    }
+    return;
+}
+
+const deleteReportBasedOnDate = async (date, userId) => {
+    const res =  await executeQuery("DELETE FROM reports WHERE date = $1 AND user_id = $2", date, userId);
     return res;
 }
 
-const getEveningReportBasedOnDate = async(date, userId) => {
-    const res = await await executeQuery("SELECT * FROM eveningreports WHERE date = $1 AND user_id = $2", date, userId);
-    return res;
+const updateReportMorningBasedOnDate = async (date, userId, data) => {
+    const res = await executeQuery(`UPDATE reports SET sleepDuration = $3, sleepQuality = $4, morningMood = $5 WHERE date = $1 AND user_id = $2;`, date, userId, data.sleepDuration, data.sleepQuality, data.mood);
 }
 
-const deleteMorningReportBasedOnDate = async(date, userId) => {
-    const res = await await executeQuery("DELETE FROM morningreports WHERE date = $1 AND user_id = $2", date, userId);
-    return res;
+const updateReportEveningBasedOnDate = async (date, userId, data) => {
+    const res = await executeQuery(`UPDATE reports SET exerciseTime = $3, studyTime = $4, qualityOfEating = $5, eveningMood = $6 WHERE date = $1 AND user_id = $2;`, date, userId, data.exerciseTime, data.studyTime, data.qualityOfEating, data.mood);
 }
 
-const deleteEveningReportBasedOnDate = async(date, userId) => {
-    const res = await await executeQuery("DELETE FROM eveningreports WHERE date = $1 AND user_id = $2", date, userId);
-    return res;
+const addReportMorningToDb = async(data) => {
+   await executeQuery("INSERT INTO reports (date, sleepDuration, sleepQuality, morningMood, user_id) VALUES ($1, $2, $3, $4, $5);", data.date, data.sleepDuration, data.sleepQuality, data.mood, data.userId);
 }
 
-const addMorningReportToDb = async(data) => {
-   await executeQuery("INSERT INTO morningreports (date, sleepDuration, sleepQuality, mood, user_id) VALUES ($1, $2, $3, $4, $5);", data.date, data.sleepDuration, data.sleepQuality, data.mood, data.userId);
-}
-
-const addEveningReportToDb = async(data) => {
+const addReportEveningToDb = async(data) => {
     console.log(data);
-   await executeQuery("INSERT INTO eveningreports (date, exerciseTime, studyTime, qualityOfEating, mood, user_id) VALUES ($1, $2, $3, $4, $5, $6);", data.date, data.exerciseTime, data.studyTime, data.qualityOfEating, data.mood, data.userId);
+   await executeQuery("INSERT INTO reports (date, exerciseTime, studyTime, qualityOfEating, eveningMood, user_id) VALUES ($1, $2, $3, $4, $5, $6);", data.date, data.exerciseTime, data.studyTime, data.qualityOfEating, data.mood, data.userId);
 }
 
 
-export {getMorningReportBasedOnDate, addMorningReportToDb, deleteMorningReportBasedOnDate, getEveningReportBasedOnDate, deleteEveningReportBasedOnDate, addEveningReportToDb }
+export { getReportBasedOnDate, deleteReportBasedOnDate, updateReportMorningBasedOnDate, updateReportEveningBasedOnDate, addReportMorningToDb, addReportEveningToDb }

@@ -9,18 +9,18 @@
             </div>
             <div style="width:100%;">
                 <p>Time spent on exercise (0.1h accuracy)</p>
-                <input type="number" name="exerciseTime" step="0.5" min="0" style="width:100%"/>
+                <input type="number" name="exerciseTime" value="<%= exerciseTime %>" step="0.5" min="0" style="width:100%" required/>
             </div>
             <div style="width:100%;">
                 <p>Time spent studying (0.1h accuracy)</p>
-                <input type="number" name="studyTime" step="0.5" min="0" style="width:100%"/>
+                <input type="number" name="studyTime" value="<%= studyTime %>" step="0.5" min="0" style="width:100%" required/>
             </div>
             <div style="width:100%">
                 <p>Regularity and quality of eating</p>
                 <div style="display: flex;">
                 <% for(var i = 1; i <= 5; i++) { %>
                     
-                    <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>">
+                    <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" required>
                     <label for="<%= i %>"><%= i %></label><br>
                 <% } %>
                 </div>
@@ -30,7 +30,7 @@
                 <div style="display: flex;">
                 <% for(var i = 1; i <= 5; i++) { %>
                     
-                    <input type="radio" id="<%= i %>" name="mood" value="<%= i %>">
+                    <input type="radio" id="<%= i %>" name="mood" value="<%= i %>" required>
                     <label for="<%= i %>"><%= i %></label><br>
                 <% } %>
                 </div>

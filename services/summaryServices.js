@@ -3,15 +3,10 @@ import { executeQuery } from "../database/database.js";
 const getOneUserAverageMonth = async (userId, month) => {
     console.log(month);
     const query = `
-    SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
-        FROM (
-            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
-            LEFT JOIN
-            eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = $1 AND morningreports.date = eveningreports.date
-            WHERE morningreports.user_id = $1 AND EXTRACT(Month FROM morningreports.date) = $2
-        ) AS subquery
-    GROUP BY EXTRACT(Month FROM date)
+    SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+        FROM reports
+            WHERE user_id = $1 AND EXTRACT(Month FROM date::timestamp) = $2
+        GROUP BY EXTRACT(Month FROM date::timestamp)
     `;
     const res = await executeQuery(query, userId, month);
         if (res && res.rowCount > 0) {
@@ -21,18 +16,14 @@ const getOneUserAverageMonth = async (userId, month) => {
     return
 }
 
-const getOnUserAverageByStartAndEndDate = async (userId, startDate, endDate) => {
-const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG(mood)) as avg_mood
-        FROM (
-            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
-            LEFT JOIN
-            eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.user_id = $1 AND morningreports.date = eveningreports.date
-            WHERE morningreports.user_id = $1 AND morningreports.date >= $2 AND morningreports.date <= $3
-        ) AS subquery
+const getOnUserAverageByWeek = async (userId, week) => {
+    console.log(week);
+const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+        FROM reports
+            WHERE reports.user_id = $1 AND EXTRACT(WEEK FROM reports.date::timestamp) = $2
     GROUP BY week
     `;
-    const res = await executeQuery(query, userId, startDate, endDate);
+    const res = await executeQuery(query, userId, week);
     if(res && res.rowCount > 0) {
         return res.rowsOfObjects();
     } else {
@@ -42,14 +33,9 @@ const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(s
 }
 
 const getAllByDate = async(date) => {
-    const query = `SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood) as avg_mood
-        FROM (
-            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
-            LEFT JOIN
-            eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.date = eveningreports.date
-            WHERE morningreports.date = $1
-        ) AS subquery
+    const query = `SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+        FROM reports
+            WHERE reports.date = $1
     GROUP BY date
     `;
     const res = await executeQuery(query, date);
@@ -59,17 +45,12 @@ const getAllByDate = async(date) => {
         return 'No data found on selected date';
     }
 }
-
+//FIX PAST 7 DAYS TO NOT USE WEEKS
 const getAllByStartAndEndDate = async (startDate, endDate) => {
-    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, AVG(sleepquality) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, AVG(mood) as avg_mood
-        FROM (
-            SELECT morningreports.date, morningreports.sleepQuality, morningreports.sleepDuration,eveningreports.exercisetime, eveningreports.studytime, ((morningreports.mood +  eveningreports.mood) / 2) as mood FROM morningreports
-            LEFT JOIN
-            eveningreports
-                ON morningreports.user_id = eveningreports.user_id AND morningreports.date = eveningreports.date
-            WHERE morningreports.date >= $1 AND morningreports.date <= $2
-        ) AS subquery
-    GROUP BY week
+    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as past7days, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+        FROM reports
+            WHERE reports.date >= $1 AND reports.date <= $2
+    GROUP BY past7days
     `;
     const res = await executeQuery(query, startDate, endDate);
     if(res && res.rowCount > 0) {
@@ -79,4 +60,4 @@ const getAllByStartAndEndDate = async (startDate, endDate) => {
     }
 }
 
-export { getAllByDate, getOneUserAverageMonth, getOnUserAverageByStartAndEndDate, getAllByStartAndEndDate }
+export { getAllByDate, getOneUserAverageMonth, getOnUserAverageByWeek, getAllByStartAndEndDate }
