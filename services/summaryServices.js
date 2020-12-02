@@ -3,7 +3,7 @@ import { executeQuery } from "../database/database.js";
 const getOneUserAverageMonth = async (userId, month) => {
     console.log(month);
     const query = `
-    SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+    SELECT DISTINCT EXTRACT(Month FROM date::timestamp) as month, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE user_id = $1 AND EXTRACT(Month FROM date::timestamp) = $2
         GROUP BY EXTRACT(Month FROM date::timestamp)
@@ -18,7 +18,7 @@ const getOneUserAverageMonth = async (userId, month) => {
 
 const getOnUserAverageByWeek = async (userId, week) => {
     console.log(week);
-const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE reports.user_id = $1 AND EXTRACT(WEEK FROM reports.date::timestamp) = $2
     GROUP BY week
@@ -33,7 +33,7 @@ const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as week, AVG(s
 }
 
 const getAllByDate = async(date) => {
-    const query = `SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+    const query = `SELECT DISTINCT date, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE reports.date = $1
     GROUP BY date
@@ -47,7 +47,7 @@ const getAllByDate = async(date) => {
 }
 //FIX PAST 7 DAYS TO NOT USE WEEKS
 const getAllByStartAndEndDate = async (startDate, endDate) => {
-    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as past7days, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality)) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2)) as avg_mood
+    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as past7days, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE reports.date >= $1 AND reports.date <= $2
     GROUP BY past7days
