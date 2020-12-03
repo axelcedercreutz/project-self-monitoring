@@ -9,16 +9,18 @@
 <p>Here's a glimpse of what you can expect when logging in to your own page</p>
 <br/>
 <div class="flex-container text-center">
-    <p class="flex-row">Mood today: <%= moodToday %></p>
-    <p class="flex-row">Mood yesterday: <%= moodYesterday %></p>
+    <p class="flex-row">General mood today: <%= moodToday %></p>
+    <p class="flex-row">General mood yesterday: <%= moodYesterday %></p>
 </div>
 
 <div class="text-center">
     <% if( moodToday > moodYesterday ) { %> 
     <p>Things are looking bright today</p>
-    <% } else { %> 
+    <% } else if (moodToday < moodYesterday) { %> 
         <p>Things are looking gloomy today</p>
-    <% } %> 
+    <% } else { %>
+        <p>Things are about the same as yesterday</p>
+    <% } %>
 </div>
 
 <br/>
