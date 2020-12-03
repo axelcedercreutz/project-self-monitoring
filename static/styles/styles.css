@@ -11,3 +11,76 @@
 .container {
     margin-top: 16px;
 }
+
+.logout-div {
+    display: flex;
+    align-items: center;
+}
+
+.logout-text {
+    flex: 1 1 0;
+    margin: 0 8px;
+    text-align: right;
+}
+
+.logout-form {
+    flex: 0 1 0;
+    margin: 0;
+}
+
+.logout-button {
+    margin: 0;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-row {
+    flex: 1 1 0;
+}
+
+.flex-container div {
+    flex: 1 1 0;
+}
+
+.reporting-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    grid-template-rows: auto;
+}
+
+.reporting-form-main-div {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.reporting-form-main-div input {
+    width: 100%;
+}
+
+.reporting-form-main-div input .form-radio {
+    margin-top: 5px;
+}
+
+.reporting-submit-button {
+    width:100%;
+    margin-top: 30px;
+}
+
+.landingpage-bar {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+.landingpage-bar li {
+    flex: 1 1 0;
+}
+
+.text-center {
+    text-align: center;
+}

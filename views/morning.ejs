@@ -1,18 +1,18 @@
 <%- include('./partials/reportingHeader.ejs') %>
-<div style="display: flex;">
-    <div style="flex: 1 1 0;">
-        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: auto;" method="POST" action="/behavior/reporting/morning"> 
-            <div style="width:100%">
+<div class="flex-container">
+    <div>
+        <form class="reporting-form" method="POST" action="/behavior/reporting/morning"> 
+            <div class="reporting-form-main-div">
                 <p>Date</p>
-                <input type="date" name="date" value="<%= date %>" style="width:100%"/>
+                <input type="date" name="date" value="<%= date %>"/>
             </div>
-            <div style="width:100%">
+            <div class="reporting-form-main-div">
                 <p>Sleep duration (0.1h accuracy)</p>
-                <input type="number" name="sleepDuration" value="<%= sleepDuration %>" step="0.1"  min="0" style="width:100%" required/>
+                <input type="number" name="sleepDuration" value="<%= sleepDuration %>" step="0.1"  min="0" required/>
             </div>
-            <div style="width:100%">
+            <div class="reporting-form-main-div">
                 <p>Sleep quality</p>
-                <div style="display: flex;">
+                <div class="flex-container">
                 <% for(var i = 1; i <= 5; i++) { %>
                     <% if(sleepQuality === i) { %>
                         <input type="radio" id="quality-<%= i %>" name="sleepQuality" value="<%= i %>" checked required>
@@ -24,9 +24,9 @@
                 <% } %>
                 </div>
             </div>
-            <div style="width:100%">
+            <div class="reporting-form-main-div">
                 <p>Generic mood</p>
-                <div style="display: flex;">
+                <div class="flex-container">
                 <% for(var i = 1; i <= 5; i++) { %>
                     <% if(morningMood === i) { %>
                         <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" checked required>
@@ -38,7 +38,7 @@
                 <% } %>
                 </div>
             </div>
-            <div style="width:100%; margin-top: 30px;">
+            <div class="reporting-submit-button">
                 <% if(morningDone) { %>
                 <input type="submit" value="Update report!" />
                 <% } else { %>
@@ -47,7 +47,7 @@
             </div>
         </form>
     </div>
-    <div style="flex: 1 1 0;">
+    <div>
     </div>
 </div>
 <% if (errors) { %>

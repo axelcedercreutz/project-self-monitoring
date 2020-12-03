@@ -8,12 +8,12 @@
 
 <p>Here's a glimpse of what you can expect when logging in to your own page</p>
 <br/>
-<div style="display: flex;text-align: center;">
-    <p style="flex: 1 1 0;">Mood today: <%= moodToday %></p>
-    <p style="flex: 1 1 0;">Mood yesterday: <%= moodYesterday %></p>
+<div class="flex-container text-center">
+    <p class="flex-row">Mood today: <%= moodToday %></p>
+    <p class="flex-row">Mood yesterday: <%= moodYesterday %></p>
 </div>
 
-<div style="text-align: center;">
+<div class="text-center">
     <% if( moodToday > moodYesterday ) { %> 
     <p>Things are looking bright today</p>
     <% } else { %> 
@@ -23,9 +23,9 @@
 
 <br/>
 
-<ul style="display: flex; list-style: none; padding: 0; text-align: center;">
-    <li style="flex: 1 1 0;"><a href="/auth/login">Want to login an existing user?</a></li>
-   <li style="flex: 1 1 0;"><a href="/auth/registration">Register user</a></li>
-   <li style="flex: 1 1 0;"><a href="/behavior/reporting">Report your data</a></li>
+<ul class="landingpage-bar">
+    <li><a href="/auth/login">Want to login an existing user?</a></li>
+   <li><a href="/auth/registration">Register user</a></li>
+   <li><a href="/behavior/reporting">Report your data</a></li>
 </ul>
 <%- include('./partials/footer.ejs') %>

@@ -1,49 +1,49 @@
 <%- include('./partials/reportingHeader.ejs') %>
-<div style="display: flex;">
-    <div style="flex: 1 1 0;"></div>
-    <div style="flex: 1 1 0;">
-        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: auto;" method="POST" action="/behavior/reporting/evening"> 
-            <div style="width:100%; display: flex; flex-direction: column; justify-content: space-between;">
+<div class="flex-container">
+    <div></div>
+    <div>
+        <form class="reporting-form" method="POST" action="/behavior/reporting/evening"> 
+            <div class="reporting-form-main-div">
                 <p>Date</p>
-                <input type="date" name="date" value="<%= date %>" style="width:100%"/>
+                <input type="date" name="date" value="<%= date %>" required/>
             </div>
-            <div style="width:100%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="reporting-form-main-div">
                 <p>Time spent on exercise (0.1h accuracy)</p>
-                <input type="number" name="exerciseTime" value="<%= exerciseTime %>" step="0.5" min="0" style="width:100%" required/>
+                <input type="number" name="exerciseTime" value="<%= exerciseTime %>" step="0.5" min="0" required/>
             </div>
-            <div style="width:100%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="reporting-form-main-div">
                 <p>Time spent studying (0.1h accuracy)</p>
-                <input type="number" name="studyTime" value="<%= studyTime %>" step="0.5" min="0" style="width:100%" required/>
+                <input type="number" name="studyTime" value="<%= studyTime %>" step="0.5" min="0" required/>
             </div>
-            <div style="width:100%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="reporting-form-main-div">
                 <p>Regularity and quality of eating</p>
-                <div style="display: flex; width: 100%; justify-content: space-between;">
+                <div class="flex-container">
                 <% for(var i = 1; i <= 5; i++) { %>
                     <% if(eveningMood === i) { %>
-                        <div style="display: flex;">
-                        <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" checked required>
-                        <label for="<%= i %>"><%= i %></label>
+                        <div class="flex-container">
+                            <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" checked required>
+                            <label for="<%= i %>"><%= i %></label>
                         </div>
                     <% } else { %>
-                        <div style="display: flex;">
-                        <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" required>
-                        <label for="<%= i %>"><%= i %></label>
+                        <div class="flex-container">
+                            <input type="radio" id="<%= i %>" name="qualityOfEating" value="<%= i %>" required>
+                            <label for="<%= i %>"><%= i %></label>
                         </div>
                     <% } %>
                 <% } %>
                 </div>
             </div>
-            <div style="width:100%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="reporting-form-main-div">
                 <p>Generic mood</p>
-                <div style="display: flex; width: 100%; justify-content: space-between;">
+                <div class="flex-container">
                     <% for(var i = 1; i <= 5; i++) { %>
                         <% if(eveningMood === i) { %>
-                            <div style="display: flex;">
+                            <div class="flex-container">
                                 <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" checked required>
                                 <label for="<%= i %>"><%= i %></label>
                             </div>
                         <% } else { %>
-                            <div style="display: flex;">
+                            <div class="flex-container">
                                 <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" required>
                                 <label for="<%= i %>"><%= i %></label><br>
                             </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div></div>
-            <div style="width:100%; margin-top: 30px;">
+            <div class="reporting-submit-button">
                 <% if(eveningDone) { %>
                     <input type="submit" value="Update report!" />
                 <% } else { %>

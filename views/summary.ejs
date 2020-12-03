@@ -1,9 +1,9 @@
 <%- include('./partials/navbarLoggedIn.ejs') , {user: user} %>
-<div style="display: flex;">
-    <div style="flex: 1 1 0;">
+<div class="flex-container">
+    <div>
         <%- include('./partials/monthView.ejs') , {summaryData: summaryData, month: month} %>
     </div>
-    <div style="flex: 1 1 0;">
+    <div>
         <%- include('./partials/weekView.ejs') , {weekSummary: weekSummary, week: week} %>
     </div>
 </div>

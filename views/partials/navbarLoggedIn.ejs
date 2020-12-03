@@ -3,11 +3,11 @@
     <li><a href="/behavior/reporting">Reporting</a></li>
     <li><a href="/behavior/summary">Summary</a></li>
     <li>
-        <div style="display: flex; align-items: center;">
-        <p style="flex: 1 1 0; margin: 0 8px; text-align: right;">Logged in as: <%= user.email %></p>
-        <form method="POST" action="/auth/logout" style="flex: 0 1 0; margin: 0;">
-            <input type="submit" value="logout" style="margin: 0;"/>
-        </form>
+        <div class="logout-div">
+            <p class="logout-text">Logged in as: <%= user.email %></p>
+            <form method="POST" action="/auth/logout" class="logout-form">
+                <input type="submit" value="logout" class="logout-button"/>
+            </form>
         </div>
     </li>
 </ul>
