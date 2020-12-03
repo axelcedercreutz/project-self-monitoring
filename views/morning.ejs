@@ -1,7 +1,7 @@
 <%- include('./partials/reportingHeader.ejs') %>
 <div style="display: flex;">
     <div style="flex: 1 1 0;">
-        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: 80px;" method="POST" action="/behavior/reporting/morning"> 
+        <form style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;     grid-template-rows: auto;" method="POST" action="/behavior/reporting/morning"> 
             <div style="width:100%">
                 <p>Date</p>
                 <input type="date" name="date" value="<%= date %>" style="width:100%"/>

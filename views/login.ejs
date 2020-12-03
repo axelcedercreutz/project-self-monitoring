@@ -1,11 +1,13 @@
 <%- include('./partials/header.ejs') %>
 <h1>Login!</h1>
 <form method="POST" action="/auth/login">
-    <h3>Email</h3>
-    <input type="text" name="email"/>
-    <h3>Password</h3>
-    <input type="password" name="password" />
-    <input type="submit" value="Login!" />
+    <fieldset>
+        <label for="emailField">Email</label>
+        <input type="text" name="email" id="emailField"/>
+        <label for="passwordField">Password</label>
+        <input type="password" name="password" id="passwordField" />
+        <input class="button-primary" type="submit" value="Login!" />
+    </fieldset>
 </form>
 <a href="/auth/registration">Register user</a>
 <% if (errors) { %>
