@@ -44,12 +44,12 @@ const getAllByDate = async(date) => {
         return;
     }
 }
-//FIX PAST 7 DAYS TO NOT USE WEEKS
+
 const getAllByStartAndEndDate = async (startDate, endDate) => {
-    const query = `SELECT DISTINCT EXTRACT(WEEK FROM date::timestamp) as past7days, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
+    const query = `SELECT DISTINCT (reports.date >= $1 AND reports.date <= $2) as grp, AVG(sleepduration) as avg_sleepduration, ROUND(AVG(sleepquality), 2) as avg_sleepquality, AVG(studytime) as avg_study, AVG(exercisetime) as avg_exercise, ROUND(AVG((morningmood + eveningmood) /2), 2) as avg_mood
         FROM reports
             WHERE reports.date >= $1 AND reports.date <= $2
-    GROUP BY past7days
+    GROUP BY grp
     `;
     const res = await executeQuery(query, startDate, endDate);
     if(res && res.rowCount > 0) {
