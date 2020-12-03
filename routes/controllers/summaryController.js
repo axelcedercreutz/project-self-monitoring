@@ -38,8 +38,8 @@ const postChangeWeek = async({render, request, session}) => {
     const numberOfMonth = mondayOfWeek.getMonth() +1;
     const summaryData = await getOneUserAverageMonth(user.id, numberOfMonth);
     const allDataWeek = await getOnUserAverageByWeek(user.id,numberOfWeek);
-    const formattedMonth = getFormattedMonth(month);
-    const formattedWeek = getFormattedWeek(firstWeekOfMonth);
+    const formattedMonth = getFormattedMonth(numberOfMonth);
+    const formattedWeek = getFormattedWeek(numberOfWeek);
     renderingHelper(render, summaryData, allDataWeek, user, formattedMonth, formattedWeek);
 }
 
@@ -54,7 +54,7 @@ const postChangeMonth = async({render, request, session}) => {
     const endDate = new Date(formattedYear, numberOfMonth -1, 8);
     const firstWeekOfMonth = getWeekNumber(endDate)[1];
     const allDataWeek = await getOnUserAverageByWeek(user.id,firstWeekOfMonth);
-    const formattedMonth = getFormattedMonth(month);
+    const formattedMonth = getFormattedMonth(numberOfMonth);
     const formattedWeek = getFormattedWeek(firstWeekOfMonth);
     renderingHelper(render, summaryData, allDataWeek, user, formattedMonth, formattedWeek)
 }
