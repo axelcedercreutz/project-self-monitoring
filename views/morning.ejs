@@ -1,39 +1,39 @@
 <%- include('./partials/reportingHeader.ejs') %>
 <div class="flex-container">
     <div>
-        <form class="reporting-form" method="POST" action="/behavior/reporting/morning"> 
+        <form class="reporting-form" method="POST" action="/behavior/reporting/morning">
             <div class="reporting-form-main-div">
-                <p>Date</p>
-                <input type="date" name="date" value="<%= date %>"/>
+                <label for="date">Date</label>
+                <input id="date" type="date" name="date" value="<%= date %>"/>
             </div>
             <div class="reporting-form-main-div">
-                <p>Sleep duration (0.1h accuracy)</p>
-                <input type="number" name="sleepDuration" value="<%= sleepDuration %>" step="0.1"  min="0" required/>
+                <label for="sleepDuration">Sleep duration (0.1h accuracy)</label>
+                <input id="sleepDuration" type="number" name="sleepDuration" value="<%= sleepDuration %>" step="0.1"  min="0" required/>
             </div>
             <div class="reporting-form-main-div">
-                <p>Sleep quality</p>
-                <div class="flex-container">
+                <label for="quality">Sleep quality</label>
+                <div id="quality" class="flex-container">
                 <% for(var i = 1; i <= 5; i++) { %>
                     <% if(sleepQuality === i) { %>
-                        <input type="radio" id="quality-<%= i %>" name="sleepQuality" value="<%= i %>" checked required>
-                        <label for="<%= i %>"><%= i %></label><br>
+                        <input class="radio-button" type="radio" id="quality-<%= i %>" name="sleepQuality" value="<%= i %>" checked required>
+                        <label for="<%= i %>"><%= i %></label>
                     <% } else { %>
-                        <input type="radio" id="quality-<%= i %>" name="sleepQuality" value="<%= i %>" required>
-                        <label for="<%= i %>"><%= i %></label><br>
+                        <input class="radio-button" type="radio" id="quality-<%= i %>" name="sleepQuality" value="<%= i %>" required>
+                        <label for="<%= i %>"><%= i %></label>
                     <% } %>
                 <% } %>
                 </div>
             </div>
             <div class="reporting-form-main-div">
-                <p>Generic mood</p>
-                <div class="flex-container">
+                <label for="mood">Generic mood</label>
+                <div id="mood" class="flex-container">
                 <% for(var i = 1; i <= 5; i++) { %>
                     <% if(morningMood === i) { %>
-                        <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" checked required>
-                        <label for="<%= i %>"><%= i %></label><br>
+                        <input class="radio-button" type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" checked required>
+                        <label for="<%= i %>"><%= i %></label>
                     <% } else { %>
-                        <input type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" required>
-                        <label for="<%= i %>"><%= i %></label><br>
+                        <input class="radio-button" type="radio" id="mood-<%= i %>" name="mood" value="<%= i %>" required>
+                        <label for="<%= i %>"><%= i %></label>
                     <% } %>
                 <% } %>
                 </div>

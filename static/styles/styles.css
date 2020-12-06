@@ -62,6 +62,11 @@
     width: 100%;
 }
 
+.flex-container .radio-button {
+    margin: 5px 0;
+    width: 10%;
+}
+
 .reporting-form-main-div input .form-radio {
     margin-top: 5px;
 }
