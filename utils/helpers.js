@@ -52,10 +52,16 @@ const getWeekNumber = (d) => {
 }
 
 const getFormattedMonth = (m) => {
+    if(m.length > 1) {
+        return m;
+    }
     return m > 9 ? m : "0"+m;
 }
 
 const getFormattedWeek = (w) => {
+    if(w.length > 1) {
+        return w;
+    }
     return w > 9 ? w : "0"+w;
 }
 

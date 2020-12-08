@@ -1,13 +1,26 @@
 import { superoak } from '../../../deps.js';
 import { app } from '../../../app.js';
 
+Deno.test({
+    name: "GET to /behavior/reporting should return HTML-document and status OK without user in cookies",
+    sanitizeResources: false,
+    sanitizeOps: false,
+    async fn() {
+        const testClient = await superoak(app);
+        await testClient.get("/behavior/reporting")
+            .expect("Content-Type", "text/html; charset=utf-8")
+            .expect(200);
+    }
+});
+
+/*
 Deno.test("GET to /behavior/reporting should return HTML-document and status OK without user in cookies", async () => {
     const testClient = await superoak(app);
     await testClient.get("/behavior/reporting")
         .expect("Content-Type", "text/html; charset=utf-8")
         .expect(200);
 });
-/*
+
 Deno.test("GET to /behavior/reporting should return HTML-document and status OK with user in session", async () => {
     const user = {
         id: 1,

@@ -46,10 +46,16 @@ Deno.test("Function getFormattedWeek(w) returns w if w > 9", () => {
     const w = 10;
     assertEquals(getFormattedWeek(w), w);
 })
+
 Deno.test("Function getFormattedWeek(w) returns '0w' if w <= 9", () => {
     const w = 2;
     const returnValue = "02";
     assertEquals(getFormattedWeek(w), returnValue);
+})
+
+Deno.test("Function getFormattedWeek(m) returns '02' if '02' given", () => {
+    const returnValue = "02";
+    assertEquals(getFormattedWeek(returnValue), returnValue);
 })
 
 Deno.test("Function getFormattedMonth(m) returns m if m > 9", () => {
@@ -60,6 +66,11 @@ Deno.test("Function getFormattedMonth(m) returns '0m' if m <= 9", () => {
     const m = 2;
     const returnValue = "02";
     assertEquals(getFormattedMonth(m), returnValue);
+})
+
+Deno.test("Function getFormattedMonth(m) returns '02' if '02' given", () => {
+    const returnValue = "02";
+    assertEquals(getFormattedMonth(returnValue), returnValue);
 })
 
 Deno.test("Function getDateOfWeek(w,y) return '2020-11-29T22:00:00.000Z' if given 2020 and 49", ()=> {
