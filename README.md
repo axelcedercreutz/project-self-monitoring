@@ -9,6 +9,8 @@ To add the credentials to your database, add a .env-file where you have specifie
 
 The assigment was to create a simple application, where users can sign up and sign in to add their daily metrics.
 
+NOTE! For the mood-average to be calculated correctly, the program expects there to be both a morning and evening mood -value entered.
+
 The only changes to the assigment given is that there is no deletion of rows from the database since the database uses a unique index for the date of reports. Depending on which report-type (morning or evening) is added first for a specific date, the new row is added to the reports-table. If there already is a row for the specific date, the new report is used to update the existing row.
 
 In order to run the project locally, download the repo, go to the root-folder and run:
