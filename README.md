@@ -5,7 +5,7 @@ A demo of the project can be found: [DEMO](https://wsd-self-monitoring.herokuapp
 
 The documented SQL Commands needed to create the database can be found in "Documentation/database.sql".
 
-To add the credentials to your database, add a .env-file where you have specified your db-credentials.
+To add the credentials to your database, add a .env-file where you have specified your db-credentials (hostname, database, user, password and port).
 
 The assigment was to create a simple application, where users can sign up and sign in to add their daily metrics.
 
