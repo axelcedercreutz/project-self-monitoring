@@ -9,8 +9,8 @@
         <input class="button-primary" type="submit" value="Login!" />
     </fieldset>
 </form>
-<a href="/auth/registration">Register user</a>
 <% if (errors) { %>
     <%- include('./partials/errors.ejs', errors) %>
 <% } %>
+<a href="/auth/registration">Register user</a>
 <%- include('./partials/footer.ejs') %>
